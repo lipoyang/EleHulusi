@@ -33,6 +33,11 @@ static int cursol_pos = POS_NORMAL;
 #define H_CHAR      48
 #define P_CHAR      24
 #define R_CHAR      5
+#define X_ERROR     10
+#define Y_ERROR1    65
+#define Y_ERROR2    115
+#define W_ERROR     300
+#define H_ERROR     100
 
 // スプライト
 TFT_eSprite sprite = TFT_eSprite(&M5.Lcd);
@@ -222,4 +227,21 @@ static void DisplayUI_sound(int octave, int key12, int vol)
     sprite.print(KEY_NAME[key12]);
     sprite.pushSprite(X_KEY, Y_KEY); 
 #endif
+}
+
+// エラー表示
+void DipslayUI_error(const char* error)
+{
+    M5.Lcd.setTextFont(2);
+    M5.Lcd.setTextSize(3);
+    M5.Lcd.setTextColor(RED);
+    
+    M5.Lcd.fillRect(X_ERROR,Y_ERROR1,W_ERROR,H_ERROR,BLACK);
+    
+    if(error[0] != 0x00){
+        M5.Lcd.setCursor(X_ERROR,Y_ERROR1);
+        M5.Lcd.print("ERROR");
+        M5.Lcd.setCursor(X_ERROR,Y_ERROR2);
+        M5.Lcd.print(error);
+    }
 }

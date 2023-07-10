@@ -23,6 +23,7 @@ static int V_off = 0;           // ブレスセンサ出力のオフセット(12
 
 void DisplayUI_begin();
 void DisplayUI_loop(int octave, int key12, int vol);
+void DipslayUI_error(const char* error);
 
 void finger_begin();
 void finger_input(int &octave, int &key12);
@@ -36,9 +37,9 @@ void sound_output(int octave, int key12, int vol);
 void setup()
 {
     // UIの初期化
-   DisplayUI_begin();
+    DisplayUI_begin();
     // シリアルポートの初期化(デバッグ用)
-//  Serial.begin(115200);
+//  Serial.begin(115200); // ← DisplayUI_begin()を実行する場合には不要
     
     // FM音源の初期化 (チャンネルに音色を割り当て)
     ymf825.begin(IOVDD_3V3, PIN_FM_RESET, PIN_FM_SS);
@@ -93,6 +94,7 @@ void finger_begin()
     // 左手
     if (!fingersL.begin_I2C(ADDR_LEFT)) {
         Serial.println("Left Hand Error.");
+        DipslayUI_error("Left Hand 1");
         while (1);
     }else{
         Serial.println("Left Hand OK.");
@@ -103,6 +105,7 @@ void finger_begin()
     // 右手
     if (!fingersR.begin_I2C(ADDR_RIGHT)) {
         Serial.println("Right Hand Error.");
+        DipslayUI_error("Right Hand 1");
         while (1);
     }else{
         Serial.println("Right Hand OK.");
@@ -118,8 +121,24 @@ void finger_input(int &octave, int &key12)
     // 指使い入力の取得
     uint8_t data_l = fingersL.readGPIOA();
     uint8_t data_r = fingersR.readGPIOA();
+    static bool wasError = false;
+    bool isError = false;
+    if(data_l == 0xFF){
+        isError = true;
+        DipslayUI_error("Left Hand 2");
+        delay(500);
+    }
+    if(data_r == 0xFF){
+        isError = true;
+        DipslayUI_error("Right Hand 2");
+        delay(500);
+    }
+    if(wasError && !isError){
+        DipslayUI_error("");
+    }
+    wasError = isError;
+    
     uint8_t finger = ((data_l & 0x0F) << 4) | (data_r & 0x0F);
-    // finger = ~finger;
     // Serial.printf("finger = %02X\n", finger);
     
     // 指使いの判定
@@ -231,12 +250,10 @@ void button_input()
             ymf825.keyoff(i);
         }
         key_state = KEY_OFF;
-        //Serial.print(a_tone);Serial.print("\t");Serial.println(tone_no);
     }
     
     // 音階 (M5本体のボタンで設定)
     ; // ここですることは特にない
-    //Serial.print(scale);Serial.print("\t");Serial.println(a_scale);
 }
 
 // 調性の計算
@@ -271,18 +288,18 @@ void sound_output(int octave, int key12, int vol)
                     ymf825.keyoff(ch_num);
                     ymf825.setTone(ch_num, TONE_TABLE[tone_no] );
                     ymf825.keyon(ch_num, octave, key12, vol);
-                    Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
+                    //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                     key_state = KEY_ON1;
                 }
                 break;
             case KEY_ON1:
                 if(vol == 0){
                     ymf825.keyoff(ch_num);
-                    Serial.println("Key Off");
+                    //Serial.println("Key Off");
                     key_state = KEY_OFF;
                 }else{
                     ymf825.keyon(ch_num, octave, key12, vol);
-                    Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
+                    //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                 }
                 break;
         }
@@ -320,7 +337,7 @@ void sound_output(int octave, int key12, int vol)
                     ymf825.keyoff(ch_num);
                     ymf825.setTone(ch_num, TONE_TABLE[tone_no] );
                     ymf825.keyon(ch_num, octave, key12, vol_old);
-                    Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
+                    //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                     key_state = KEY_ON2;
                 }
                 break;
@@ -332,13 +349,5 @@ void sound_output(int octave, int key12, int vol)
                 break;
         }
     }
-    
-#if 0
-    // キー、オクターブ、音量の確認
-    Serial.print("tone_no:"); Serial.print(tone_no);Serial.print("\t");
-    Serial.print("key12:");   Serial.print(key12);  Serial.print("\t");
-    Serial.print("octave:");  Serial.print(octave); Serial.print("\t");
-    Serial.print("vol:");     Serial.print(vol);    Serial.print("\n");
-#endif
 }
 
