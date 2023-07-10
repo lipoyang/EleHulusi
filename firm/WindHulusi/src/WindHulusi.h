@@ -34,13 +34,38 @@
 #define STRINGS_MIN     3
 
 // 指使いのテーブル(親指以外)
-const uint8_t FINGER_TABLE[9] = {
-//  C     D     E     F     G     A     B     C     ---
-    0x00, 0x01, 0x03, 0x07, 0x0F, 0x1F, 0x3F, 0x5F, 0xFF
+const uint8_t FINGER_TABLE[13] = {
+    0x00, // C
+    0x01, // D
+    0x02, // D#
+    0x03, // E
+    0x07, // F
+    0x0B, // F#
+    0x0E, // C# ← 変則的だがひとまずここにおく
+    0x0F, // G
+    0x17, // G#
+    0x1F, // A
+    0x2F, // A#
+    0x3F, // B
+    0x5F, // C
 };
 
-// 音階 (ハ長調) テーブル
-int SCALE[7] = {KEY_C, KEY_D, KEY_E, KEY_F, KEY_G, KEY_A, KEY_B};
+// 音階のテーブル
+int KEY_TABLE[13] = {
+    KEY_C,
+    KEY_D,
+    KEY_D_SHARP,
+    KEY_E,
+    KEY_F,
+    KEY_F_SHARP,
+    KEY_C_SHARP, // ← 変則的だがひとまずここにおく
+    KEY_G,
+    KEY_G_SHARP,
+    KEY_A,
+    KEY_A_SHARP,
+    KEY_B,
+    KEY_C
+};
 
 #if 0
 // 調号テーブル (-1:♭ +1:#)

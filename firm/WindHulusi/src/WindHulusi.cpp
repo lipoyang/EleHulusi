@@ -144,22 +144,20 @@ void finger_input(int &octave, int &key12)
     // 指使いの判定
     int octave_up = ((finger & 0x80) != 0) ? 1 : 0;
     finger &= 0x7F;
-    int key = 0;
-    for(int i = 0; i < 8; i++){
+    int key = 12;
+    for(int i = 0; i < 13; i++){
         if(finger <= FINGER_TABLE[i]){
             key = i;
             break;
         }
     }
     // 高いドの場合
-    if(key > KEY7_B){
-        key = KEY7_C;
+    if(key == 12){
         octave_up++;
     }
-    
     // 音階の決定
     octave = 4 + octave_up;
-    key12 = SCALE[key];
+    key12 = KEY_TABLE[key];
 }
 
 // ブレスセンサの初期化
