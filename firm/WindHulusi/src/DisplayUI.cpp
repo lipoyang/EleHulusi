@@ -40,7 +40,11 @@ static int cursol_pos = POS_NORMAL;
 #define H_ERROR     100
 
 // スプライト
-TFT_eSprite sprite = TFT_eSprite(&M5.Lcd);
+TFT_eSprite spriteKey    = TFT_eSprite(&M5.Lcd);
+TFT_eSprite spriteTone   = TFT_eSprite(&M5.Lcd);
+TFT_eSprite spriteScale  = TFT_eSprite(&M5.Lcd);
+TFT_eSprite spriteVolume = TFT_eSprite(&M5.Lcd);
+TFT_eSprite spriteError  = TFT_eSprite(&M5.Lcd);
 
 // サブルーチン
 static void DisplayUI_frame();
@@ -55,8 +59,30 @@ void DisplayUI_begin()
     M5.Lcd.fillScreen(BLACK);
 
     // スプライトの作成
-    sprite.setColorDepth(16);
-    sprite.createSprite(W_KEY, H_KEY);
+    spriteKey.setColorDepth(16);
+    spriteKey.createSprite(W_KEY, H_KEY);
+    spriteKey.setTextFont(2);
+    spriteKey.setTextSize(4);
+
+    spriteTone.setColorDepth(16);
+    spriteTone.createSprite(W_TONE, H_CHAR);
+    spriteTone.setTextFont(2);
+    spriteTone.setTextSize(3);
+
+    spriteScale.setColorDepth(16);
+    spriteScale.createSprite(W_SCALE, H_CHAR);
+    spriteScale.setTextFont(2);
+    spriteScale.setTextSize(3);
+
+    spriteVolume.setColorDepth(16);
+    spriteVolume.createSprite(W_VOLUME, H_CHAR);
+    spriteVolume.setTextFont(2);
+    spriteVolume.setTextSize(3);
+
+    spriteError.setColorDepth(16);
+    spriteError.createSprite(W_ERROR, H_ERROR);
+    spriteError.setTextFont(2);
+    spriteError.setTextSize(3);
 
     DisplayUI_frame();
     DisplayUI_settings();
@@ -134,6 +160,7 @@ static void DisplayUI_frame()
 // 設定の描画
 static void DisplayUI_settings()
 {
+    // 音色名
     static const char TONE_NAME[][13] = {
         "Grand Piano",
         "Tinkle Bell",
@@ -144,46 +171,44 @@ static void DisplayUI_settings()
         "Rock Organ",
         "Harmonica"
     };
-  
-//    M5.Lcd.setTextFont(4);
-//    M5.Lcd.setTextSize(2);
-    M5.Lcd.setTextFont(2);
-    M5.Lcd.setTextSize(3);
 
     // 音色
     if(cursol_pos == POS_TONE){
-        M5.Lcd.setTextColor(RED); //, BLACK);
+        spriteTone.setTextColor(RED); //, BLACK);
     }else{
-        M5.Lcd.setTextColor(YELLOW); //, BLACK);
+        spriteTone.setTextColor(YELLOW); //, BLACK);
     }
-    M5.Lcd.fillRect(X_TONE,Y_TONE,W_TONE,H_CHAR,BLACK);
-    M5.Lcd.setCursor(X_TONE+P_CHAR,Y_TONE);
-    M5.Lcd.print(TONE_NAME[tone_no]);
+    spriteTone.fillRect(0,0,W_TONE,H_CHAR,BLACK);
+    spriteTone.setCursor(P_CHAR,0);
+    spriteTone.print(TONE_NAME[tone_no]);
+    spriteTone.pushSprite(X_TONE, Y_TONE);
 
     // 調性
     if(cursol_pos == POS_SCALE){
-        M5.Lcd.setTextColor(RED); //, BLACK);
+        spriteScale.setTextColor(RED); //, BLACK);
     }else{
-        M5.Lcd.setTextColor(YELLOW); //, BLACK);
+        spriteScale.setTextColor(YELLOW); //, BLACK);
     }
-    M5.Lcd.fillRect(X_SCALE,Y_SCALE,W_SCALE,H_CHAR,BLACK);
-    M5.Lcd.setCursor(X_SCALE+P_CHAR,Y_SCALE);
+    spriteScale.fillRect(0,0,W_SCALE,H_CHAR,BLACK);
+    spriteScale.setCursor(P_CHAR,0);
     if(scale > 0){
-        M5.Lcd.printf("+%d", scale);
+        spriteScale.printf("+%d", scale);
     }else{
-        M5.Lcd.printf("%d", scale);
+        spriteScale.printf("%d", scale);
     }
+    spriteScale.pushSprite(X_SCALE, Y_SCALE);
 
     // 音量
     if(cursol_pos == POS_VOLUME){
-        M5.Lcd.setTextColor(RED); //, BLACK);
+        spriteVolume.setTextColor(RED); //, BLACK);
     }else{
-        M5.Lcd.setTextColor(YELLOW); //, BLACK);
+        spriteVolume.setTextColor(YELLOW); //, BLACK);
     }
-    M5.Lcd.fillRect(X_VOLUME,Y_VOLUME,W_VOLUME,H_CHAR,BLACK);
-    M5.Lcd.setCursor(X_VOLUME+P_CHAR,Y_VOLUME);
+    spriteVolume.fillRect(0,0,W_VOLUME,H_CHAR,BLACK);
+    spriteVolume.setCursor(P_CHAR,0);
     int vol = (master_vol >= 32) ? master_vol - 31 : 0;
-    M5.Lcd.printf("%d", vol);
+    spriteVolume.printf("%d", vol);
+    spriteVolume.pushSprite(X_VOLUME, Y_VOLUME);
 }
 
 // サウンドの描画
@@ -219,29 +244,26 @@ static void DisplayUI_sound(int octave, int key12, int vol)
     M5.Lcd.setTextSize(4);
     M5.Lcd.print(KEY_NAME[key12]);
 #else
-    sprite.fillRect(0,0,W_KEY,H_KEY,BLACK);
-    sprite.setTextColor(color);//, BLACK);
-    sprite.setCursor(0,0);
-    sprite.setTextFont(2);
-    sprite.setTextSize(4);
-    sprite.print(KEY_NAME[key12]);
-    sprite.pushSprite(X_KEY, Y_KEY); 
+    spriteKey.fillRect(0,0,W_KEY,H_KEY,BLACK);
+    spriteKey.setTextColor(color);//, BLACK);
+    spriteKey.setCursor(0,0);
+    spriteKey.print(KEY_NAME[key12]);
+    spriteKey.pushSprite(X_KEY, Y_KEY); 
 #endif
 }
 
 // エラー表示
 void DipslayUI_error(const char* error)
 {
-    M5.Lcd.setTextFont(2);
-    M5.Lcd.setTextSize(3);
-    M5.Lcd.setTextColor(RED);
+    spriteError.setTextColor(RED);
     
-    M5.Lcd.fillRect(X_ERROR,Y_ERROR1,W_ERROR,H_ERROR,BLACK);
+    spriteError.fillRect(0,0,W_ERROR,H_ERROR,BLACK);
     
     if(error[0] != 0x00){
-        M5.Lcd.setCursor(X_ERROR,Y_ERROR1);
-        M5.Lcd.print("ERROR");
-        M5.Lcd.setCursor(X_ERROR,Y_ERROR2);
-        M5.Lcd.print(error);
+        spriteError.setCursor(0,0);
+        spriteError.print("ERROR");
+        spriteError.setCursor(0,Y_ERROR2 - Y_ERROR1);
+        spriteError.print(error);
     }
+    spriteError.pushSprite(X_ERROR, Y_ERROR1); 
 }
