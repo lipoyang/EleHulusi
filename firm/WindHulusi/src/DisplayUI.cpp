@@ -231,9 +231,11 @@ static void DisplayUI_sound(int octave, int key12, int vol)
     uint16_t r = COLOR_TABLE[index][0];
     uint16_t g = COLOR_TABLE[index][1];
     uint16_t b = COLOR_TABLE[index][2];
-    r = r * vol / 31;
-    g = g * vol / 31;
-    b = b * vol / 31;
+    const int VOL_SAT = 16; // 31以下の値で調整
+    if(vol > VOL_SAT) vol = VOL_SAT;
+    r = r * vol / VOL_SAT;
+    g = g * vol / VOL_SAT;
+    b = b * vol / VOL_SAT;
     uint16_t color = (r << 11) | (g << 5) | b;
     
 #if 0

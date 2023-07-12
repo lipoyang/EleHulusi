@@ -183,7 +183,7 @@ void breath_begin()
 // ブレスセンサの入力
 void breath_input(int &vol)
 {
-    static const int V_MAX   = 100; // 最大ゲージ圧
+    static const int V_MAX   = 80; // 最大ゲージ圧
     static const int Vol_MAX = 31; // 最大音量
     
     // アナログ入力の取得
