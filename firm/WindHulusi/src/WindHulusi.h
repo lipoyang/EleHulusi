@@ -31,7 +31,7 @@
 #define KEY_ON2         2
 
 // 弦楽器の最小音量閾値
-#define STRINGS_MIN     3
+#define STRINGS_MIN     5
 
 // 指使いのテーブル(親指以外)
 const uint8_t FINGER_TABLE[13] = {
