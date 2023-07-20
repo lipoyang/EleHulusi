@@ -34,7 +34,7 @@
 #define STRINGS_MIN     5
 
 // 指使いのテーブル(親指以外)
-const uint8_t FINGER_TABLE[13] = {
+const uint8_t FINGER_TABLE[14] = {
     0x00, // C
     0x01, // D
     0x02, // D#
@@ -48,10 +48,11 @@ const uint8_t FINGER_TABLE[13] = {
     0x2F, // A#
     0x3F, // B
     0x5F, // C
+    0x6F, // D
 };
 
 // 音階のテーブル
-int KEY_TABLE[13] = {
+int KEY_TABLE[14] = {
     KEY_C,
     KEY_D,
     KEY_D_SHARP,
@@ -64,7 +65,8 @@ int KEY_TABLE[13] = {
     KEY_A,
     KEY_A_SHARP,
     KEY_B,
-    KEY_C
+    KEY_C,
+    KEY_D,
 };
 
 #if 0

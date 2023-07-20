@@ -144,15 +144,15 @@ void finger_input(int &octave, int &key12)
     // 指使いの判定
     int octave_up = ((finger & 0x80) != 0) ? 1 : 0;
     finger &= 0x7F;
-    int key = 12;
-    for(int i = 0; i < 13; i++){
+    int key = 13;
+    for(int i = 0; i < 14; i++){
         if(finger <= FINGER_TABLE[i]){
             key = i;
             break;
         }
     }
     // 高いドの場合
-    if(key == 12){
+    if(key >= 12){
         octave_up++;
     }
     // 音階の決定
