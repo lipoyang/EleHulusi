@@ -4,8 +4,8 @@
 // ピン番号定数
 #define PIN_SW_L        26  // ドローン管(左)のスイッチ
 #define PIN_SW_R        36  // ドローン管(右)のスイッチ
-#define PIN_LED_L       5   // ドローン管(左)のLED
-#define PIN_LED_R       2   // ドローン管(右)のLED
+#define PIN_LED_L       2   // ドローン管(左)のLED
+#define PIN_LED_R       5   // ドローン管(右)のLED
 
 #define PIN_FM_SS       16   // FM音源のSPIスレーブセレクト
 #define PIN_FM_RESET    17   // FM音源のリセット

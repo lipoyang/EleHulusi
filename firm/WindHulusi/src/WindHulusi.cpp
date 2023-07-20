@@ -53,8 +53,8 @@ void setup()
     pinMode(PIN_SW_R,  INPUT); // #36 はプルアップ不可 (外部プルアップする)
     pinMode(PIN_LED_L, OUTPUT);
     pinMode(PIN_LED_R, OUTPUT);
-    digitalWrite(PIN_LED_L, LOW);
-    digitalWrite(PIN_LED_R, LOW);
+    digitalWrite(PIN_LED_L, HIGH);
+    digitalWrite(PIN_LED_R, HIGH);
     
     // ブレスセンサの初期化
     breath_begin();
@@ -211,23 +211,23 @@ void button_input()
     static uint8_t sw_r = 0x00;
     sw_l <<= 1;
     sw_r <<= 1;
-    sw_l |= (digitalRead(PIN_SW_L) == LOW) ? 0x01 : 0x00;
-    sw_r |= (digitalRead(PIN_SW_R) == LOW) ? 0x01 : 0x00;
+    sw_l |= (digitalRead(PIN_SW_L) == LOW) ? 0x00 : 0x01;
+    sw_r |= (digitalRead(PIN_SW_R) == LOW) ? 0x00 : 0x01;
     
-    if(       (droneL_on == false) && ((sw_l & 0x0F) == 0x0F)){
+    if(       (droneL_on == false) && (sw_l == 0xF0)){
         droneL_on = true;
         digitalWrite(PIN_LED_L, LOW);
         Serial.println("SW-L ON");
-    }else if ((droneL_on == true ) && ((sw_l & 0x0F) == 0x00)){
+    }else if ((droneL_on == true ) && (sw_l == 0xF0)){
         droneL_on = false;
         digitalWrite(PIN_LED_L, HIGH);
         Serial.println("SW-L OFF");
     }
-    if(       (droneR_on == false) && ((sw_r & 0x0F) == 0x0F)){
+    if(       (droneR_on == false) && (sw_r == 0xF0)){
         droneR_on = true;
         digitalWrite(PIN_LED_R, LOW);
         Serial.println("SW-R ON");
-    }else if ((droneR_on == true ) && ((sw_r & 0x0F) == 0x00)){
+    }else if ((droneR_on == true ) && (sw_r == 0xF0)){
         droneR_on = false;
         digitalWrite(PIN_LED_R, HIGH);
         Serial.println("SW-R OFF");
