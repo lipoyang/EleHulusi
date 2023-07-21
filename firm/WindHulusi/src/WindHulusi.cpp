@@ -282,21 +282,45 @@ void sound_output(int octave, int key12, int vol)
         switch(key_state){
             case KEY_OFF:
                 if(vol > 0){
-                    ch_num = (ch_num + 1) & 0x0F; // mod 16
+                    ch_num = (ch_num + 3) & 0x0F; // mod 16
+
                     ymf825.keyoff(ch_num);
                     ymf825.setTone(ch_num, TONE_TABLE[tone_no] );
                     ymf825.keyon(ch_num, octave, key12, vol);
                     //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                     key_state = KEY_ON1;
+
+                    if(droneL_on){
+                        int ch_drone = (ch_num + 1) & 0x0F;
+                        ymf825.keyoff(ch_drone);
+                        ymf825.setTone(ch_drone, TONE_TABLE[tone_no] );
+                        ymf825.keyon(ch_drone, 4, KEY_A, vol);
+                    }
+                    if(droneR_on){
+                        int ch_drone = (ch_num + 2) & 0x0F;
+                        ymf825.keyoff(ch_drone);
+                        ymf825.setTone(ch_drone, TONE_TABLE[tone_no] );
+                        ymf825.keyon(ch_drone, 4, KEY_D, vol);
+                    }
                 }
                 break;
             case KEY_ON1:
                 if(vol == 0){
                     ymf825.keyoff(ch_num);
+                    ymf825.keyoff((ch_num + 1) & 0x0F);
+                    ymf825.keyoff((ch_num + 2) & 0x0F);
                     //Serial.println("Key Off");
                     key_state = KEY_OFF;
                 }else{
                     ymf825.keyon(ch_num, octave, key12, vol);
+                    if(droneL_on){
+                        int ch_drone = (ch_num + 1) & 0x0F;
+                        ymf825.keyon(ch_drone, 4, KEY_A, vol);
+                    }
+                    if(droneR_on){
+                        int ch_drone = (ch_num + 2) & 0x0F;
+                        ymf825.keyon(ch_drone, 4, KEY_D, vol);
+                    }
                     //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                 }
                 break;
