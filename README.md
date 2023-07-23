@@ -12,8 +12,17 @@ EleHulusi is a wind instrument with M5Stack and YAMAHA FM synthesizer chip. It i
 - Kailh Choc V1 ロープロファイルキースイッチ (赤軸)
 - MBK Choc ロープロファイルキーキャップ
 - 16bit I2C I/OエキスパンダIC MCP23017
-- DC/DCコンバータ イーター電子 入力:～ 出力:5V/1A 
-- スピーカー 8Ω 2W 28mm角
+- DC/DCコンバータ イーター電機工業 AS6R0-0505 (入力4.5～9V, 出力:5V/1A) 
+- スピーカ 8Ω 2W 28mm角 LF-K2828B112A
+
+## コンセプト
+
+## 運指表
+![構成図](image/finger.png)
+- ソプラノリコーダーのドレミファソラシドの指使いを踏襲
+- 半音の指使いはやや改変しています。特にC#4は変則的。
+- A3～B3も出せるように変則的な指使いを定めています。
+- 左手親指を開けると単純に1オクターブ上がります。
 
 ## ソフトウェア
 - PlatformIOで開発 (Arduinoベース)
