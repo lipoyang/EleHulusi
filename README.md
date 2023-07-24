@@ -16,9 +16,17 @@ EleHulusi is a wind instrument with M5Stack and YAMAHA FM synthesizer LSI. It is
 - スピーカ 8Ω 2W 28mm角 LF-K2828B112A
 
 ## コンセプト
-中国の民族楽器フルス(葫蘆絲, húlúsī)をモチーフにしたデザインのウインドシンセサイザーです。フルスは、ひょうたんに3本の竹筒がささったような構造をしており、真ん中の竹筒(主管)が指使いによって旋律を奏で、左右の竹筒(副管)は常に一定の音程の持続音を奏でます。これはバグパイプに似た原理で、厚みのあるサウンドを生みます。
+中国の民族楽器であるフルス(葫蘆絲, húlúsī)がモチーフです。フルスは、ひょうたんに3本の竹筒がささった構造をしており、真ん中の竹筒(主管)が旋律を奏で、左右の竹筒(副管)は常に一定の音程の持続音を奏でます。これはバグパイプと同じ原理で、厚みのあるサウンドを生みます。
 
-えれふるすは、ひょうたんの代わりにペットボトルを、竹筒のかわりにマーブルチョコレートの筒を使って作りました。
+EleHulusi is inspired by the hulusi that is a Chinese traditional instrument. The hulusi is made of a gourd bottle and bamboo pipes. the center pipe makes a melody, and side pipes makes sustained sounds. It sounds like a bugpipe and works on the same principle.
+
+![フルス](image/hulusi.jpg)
+
+出典：[Wikipedia](https://ja.wikipedia.org/wiki/%E3%81%B2%E3%82%87%E3%81%86%E3%81%9F%E3%82%93%E7%AC%9B)
+
+えれふるすは、ひょうたんの代わりにペットボトルを、竹筒のかわりにマーブルチョコレートの筒を使って作りました。ペットボトルに吹き込んだ息を気圧センサで検出します。主管には旋律を奏でるためのキーを備え、副管には持続音をON/OFFするスイッチと電池ボックスを備えます。FM音源が様々な音色を生み出し、スピーカーに出力します。
+
+EleHulusi is made of a plastic bottle and paper pipes instead of a gourd bottle and bamboo pipes. The air pressure sensor detects the breath blown into the bottle. The center pipe has keys to play a melody. Side pipes have battery boxes and sustained sound output switches. The FM synthesizer produces various timbres and outputs them to the speaker.
 
 ## 運指表
 ![構成図](image/finger.png)
