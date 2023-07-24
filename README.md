@@ -16,11 +16,11 @@ EleHulusi is a wind instrument with M5Stack and YAMAHA FM synthesizer LSI. It is
 - スピーカ 8Ω 2W 28mm角 LF-K2828B112A
 
 ## コンセプト
-中国の民族楽器であるフルス(葫蘆絲, húlúsī)がモチーフです。フルスは、ひょうたんに3本の竹筒がささった構造をしており、真ん中の竹筒(主管)が旋律を奏で、左右の竹筒(副管)は常に一定の音程の持続音を奏でます。これはバグパイプと同じ原理で、厚みのあるサウンドを生みます。
+中国の民族楽器であるフルス(葫蘆絲, húlúsī)がモチーフです。フルスは、ひょうたんと3本の竹筒からなり、真ん中の竹筒(主管)が旋律を奏で、左右の竹筒(副管)は一定の音程の持続音を奏でます。これはバグパイプと同じ原理で、厚みのある音を生みます。
 
 EleHulusi is inspired by the hulusi that is a Chinese traditional instrument. The hulusi is made of a gourd bottle and bamboo pipes. the center pipe makes a melody, and side pipes makes sustained sounds. It sounds like a bugpipe and works on the same principle.
 
-![フルス](image/hulusi.jpg)
+![フルス](image/hulusi.jpg) 
 
 出典：[Wikipedia](https://ja.wikipedia.org/wiki/%E3%81%B2%E3%82%87%E3%81%86%E3%81%9F%E3%82%93%E7%AC%9B)
 
