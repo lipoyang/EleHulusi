@@ -1,12 +1,29 @@
 # えれふるす (FM音源ウインドシンセ)
+<img src="image/EleHulusi.jpg" width="512">
 
-M5StackとヤマハのFM音源チップを使った吹奏楽器です。リコーダーに似た指使いで簡単に吹くことができます。バグパイプにも似た持続音をともなって豊かなハーモニーを奏でるのが特長です。
+FM音源チップを使った吹奏楽器です。中国のひょうたん笛がモチーフです。  
+<!-- The wind synthesizer inspired by Chinese gourd flute. -->
 
-EleHulusi is a wind instrument with M5Stack and YAMAHA FM synthesizer LSI. It is easy to play like a recorder. It makes rich harmoniy with sustained sounds like a bagpipe.
+## 概要
 
-## システム構成
-![構成図](image/overview.png)
+<img src="image/EleHulusi_2.jpg" width="512">
+
+- マウスピースに吹き込んだ息を気圧センサで検出します。
+- 主管には8つのキーがあり、リコーダーに似た指使いで演奏します。
+- 副管は電池ボックスになっています。また、持続音をON/OFFするスイッチが付いています。
+- 右の副管をONするとレ(D4)の音が、左の副管をONするとラ(A4)の音が出ます。
+- FM音源チップでさまざまな音色を作り、スピーカーに出力します。
+- M5Stackの画面とボタンで音色や調性などを設定できます。
+
+<!--
+The air pressure sensor detects the breath blown into the bottle. The center pipe has keys to play a melody. Outer pipes have battery boxes and switches that turn on/off the sustained sounds. The FM synthesizer produces various timbres and outputs them to the speaker.
+-->
+
+## 構成
+<img src="image/overview.png" width="640">
+
 - M5Stack Basic V2.7 (Battery Bottom は不使用)
+- ソフトはPlatformIOで開発 (Arduinoベース)
 - YAMAHA YMF825搭載FM音源モジュール基板 YMF825Board
 - ゲージ圧センサ MIS-2500-015G(5V) 
 - Kailh Choc V1 ロープロファイルキースイッチ (赤軸)
@@ -15,18 +32,25 @@ EleHulusi is a wind instrument with M5Stack and YAMAHA FM synthesizer LSI. It is
 - DC/DCコンバータ イーター電機工業 AS6R0-0505 (入力4.5～9V, 出力:5V/1A) 
 - スピーカ 8Ω 2W 28mm角 LF-K2828B112A
 
-## コンセプト
-中国の民族楽器であるフルス(葫蘆絲, húlúsī)がモチーフです。フルスは、ひょうたんと3本の竹筒からなり、真ん中の竹筒(主管)が旋律を奏で、左右の竹筒(副管)は一定の音程の持続音を奏でます。これはバグパイプと同じ原理で、厚みのある音を生みます。
+## 設定画面
+- 音色は8種類から選べます。<br>(Harmonica, Rock Organ, Flute, Church Organ, Harpsichord, Nylon Guiter, Tinkle Bell, Grand Piao)
+- キーは-12から＋12まで設定できます。( 0のときC管、+5のときF管となります。)
+- ボリュームは0から31まで設定できます。
 
-EleHulusi is inspired by the hulusi that is a Chinese traditional instrument. The hulusi is made of a gourd bottle and bamboo pipes. the center pipe makes a melody, and side pipes makes sustained sounds. It sounds like a bugpipe and works on the same principle.
+## コンセプト
+中国の民族楽器であるフルス (葫蘆絲, húlúsī) がモチーフです。フルスは、ひょうたん笛とも呼ばれ、ひょうたんに3本の竹の管がささった構造をしています。両サイドの管は和音の効果を担います。これはバグパイプと同様の原理で、厚みのある音色を生みます。
+
+えれふるすは、ひょうたんの代わりにペットボトルを、竹筒のかわりにマーブルチョコレートの筒を使って作りました。そしてフルスの持続音をFM音源の同時発音で再現しました。
+
+<!--
+EleHulusi is inspired by the hulusi that is a Chinese traditional instrument known as the gourd flute. The hulusi is consist of a gourd bottle and three bamboo pipes. The outer pipes makes a harmonic effect. It is the same principle as bagpipes.
+
+EleHulusi is made of a plastic bottle and paper pipes instead of a gourd bottle and bamboo pipes. The polyphonic FM synthesizer reproduces the harmonic effect of the hulusi.
+-->
 
 ![フルス](image/hulusi.jpg) 
 
 出典：[Wikipedia](https://ja.wikipedia.org/wiki/%E3%81%B2%E3%82%87%E3%81%86%E3%81%9F%E3%82%93%E7%AC%9B)
-
-えれふるすは、ひょうたんの代わりにペットボトルを、竹筒のかわりにマーブルチョコレートの筒を使って作りました。ペットボトルに吹き込んだ息を気圧センサで検出します。主管には旋律を奏でるためのキーを備え、副管には持続音をON/OFFするスイッチと電池ボックスを備えます。FM音源が様々な音色を生み出し、スピーカーに出力します。
-
-EleHulusi is made of a plastic bottle and paper pipes instead of a gourd bottle and bamboo pipes. The air pressure sensor detects the breath blown into the bottle. The center pipe has keys to play a melody. Side pipes have battery boxes and sustained sound output switches. The FM synthesizer produces various timbres and outputs them to the speaker.
 
 ## 運指表
 ![構成図](image/finger.png)
@@ -35,11 +59,3 @@ EleHulusi is made of a plastic bottle and paper pipes instead of a gourd bottle 
 - A3～B3も出せるように変則的な指使いを定めています。
 - 左手親指を開けると単純に1オクターブ上がります。
 
-## 設定画面
-
-## ソフトウェア
-- PlatformIOで開発 (Arduinoベース)
-- 依存ライブラリ
-    - M5Stack
-    - Adafruit MCP23017 Arduino Library
-    - SimpleYMF815 (自作ライブラリ)
