@@ -1,4 +1,6 @@
 #include <M5Stack.h>
+#include "Icon_Scale.h"
+#include "Icon_Volume.h"
 
 // 外部参照
 extern int master_vol;      // マスター音量
@@ -20,24 +22,27 @@ static int cursol_pos = POS_NORMAL;
 #define X_TONE      10
 #define Y_TONE      10
 #define W_TONE      300
+#define P_TONE      24
 #define X_SCALE     10
 #define Y_SCALE     170
 #define W_SCALE     140
+#define P_SCALE     60
 #define X_VOLUME    170
 #define Y_VOLUME    170
 #define W_VOLUME    140
+#define P_VOLUME    60
 #define X_KEY       120
 #define Y_KEY       80
 #define W_KEY       100
 #define H_KEY       64
 #define H_CHAR      48
-#define P_CHAR      24
 #define R_CHAR      5
 #define X_ERROR     10
 #define Y_ERROR1    65
 #define Y_ERROR2    115
 #define W_ERROR     300
 #define H_ERROR     100
+#define P_ICON      12
 
 // スプライト
 TFT_eSprite spriteKey    = TFT_eSprite(&M5.Lcd);
@@ -65,17 +70,17 @@ void DisplayUI_begin()
     spriteKey.setTextSize(4);
 
     spriteTone.setColorDepth(16);
-    spriteTone.createSprite(W_TONE, H_CHAR);
+    spriteTone.createSprite(W_TONE - P_TONE, H_CHAR);
     spriteTone.setTextFont(2);
     spriteTone.setTextSize(3);
 
     spriteScale.setColorDepth(16);
-    spriteScale.createSprite(W_SCALE, H_CHAR);
+    spriteScale.createSprite(W_SCALE - P_SCALE, H_CHAR);
     spriteScale.setTextFont(2);
     spriteScale.setTextSize(3);
 
     spriteVolume.setColorDepth(16);
-    spriteVolume.createSprite(W_VOLUME, H_CHAR);
+    spriteVolume.createSprite(W_VOLUME - P_VOLUME, H_CHAR);
     spriteVolume.setTextFont(2);
     spriteVolume.setTextSize(3);
 
@@ -155,6 +160,9 @@ static void DisplayUI_frame()
         X_VOLUME - R_CHAR, Y_VOLUME - R_CHAR,
         W_VOLUME + R_CHAR * 2, H_CHAR + R_CHAR * 2,
         R_CHAR, WHITE);//YELLOW); 
+
+    M5.Lcd.drawBitmap(X_TONE + P_ICON, Y_SCALE + 6, 36, 36, ICON_SCALE);
+    M5.Lcd.drawBitmap(X_VOLUME + P_ICON, Y_SCALE + 6, 36, 36, ICON_VOLUME);
 }
 
 // 設定の描画
@@ -178,10 +186,10 @@ static void DisplayUI_settings()
     }else{
         spriteTone.setTextColor(YELLOW); //, BLACK);
     }
-    spriteTone.fillRect(0,0,W_TONE,H_CHAR,BLACK);
-    spriteTone.setCursor(P_CHAR,0);
+    spriteTone.fillRect(0,0,W_TONE - P_TONE,H_CHAR,BLACK);
+    spriteTone.setCursor(0,0);
     spriteTone.print(TONE_NAME[tone_no]);
-    spriteTone.pushSprite(X_TONE, Y_TONE);
+    spriteTone.pushSprite(X_TONE + P_TONE, Y_TONE);
 
     // 調性
     if(cursol_pos == POS_SCALE){
@@ -189,14 +197,14 @@ static void DisplayUI_settings()
     }else{
         spriteScale.setTextColor(YELLOW); //, BLACK);
     }
-    spriteScale.fillRect(0,0,W_SCALE,H_CHAR,BLACK);
-    spriteScale.setCursor(P_CHAR,0);
+    spriteScale.fillRect(0,0,W_SCALE - P_SCALE,H_CHAR,BLACK);
+    spriteScale.setCursor(0,0);
     if(scale > 0){
         spriteScale.printf("+%d", scale);
     }else{
         spriteScale.printf("%d", scale);
     }
-    spriteScale.pushSprite(X_SCALE, Y_SCALE);
+    spriteScale.pushSprite(X_SCALE + P_SCALE, Y_SCALE);
 
     // 音量
     if(cursol_pos == POS_VOLUME){
@@ -204,11 +212,11 @@ static void DisplayUI_settings()
     }else{
         spriteVolume.setTextColor(YELLOW); //, BLACK);
     }
-    spriteVolume.fillRect(0,0,W_VOLUME,H_CHAR,BLACK);
-    spriteVolume.setCursor(P_CHAR,0);
+    spriteVolume.fillRect(0,0,W_VOLUME - P_VOLUME,H_CHAR,BLACK);
+    spriteVolume.setCursor(0,0);
     int vol = (master_vol >= 32) ? master_vol - 31 : 0;
     spriteVolume.printf("%d", vol);
-    spriteVolume.pushSprite(X_VOLUME, Y_VOLUME);
+    spriteVolume.pushSprite(X_VOLUME + P_VOLUME, Y_VOLUME);
 }
 
 // サウンドの描画

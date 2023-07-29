@@ -22,17 +22,17 @@ The air pressure sensor detects the breath blown into the bottle. The center pip
 ## 構成
 <img src="image/overview.png" width="640">
 
-- M5Stack Basic V2.7 (Battery Bottom は不使用)
+- M5Stack Basic V2.7
 - ソフトはPlatformIOで開発 (Arduinoベース)
-- YAMAHA YMF825搭載FM音源モジュール基板 YMF825Board
+- YAMAHA YMF825搭載FM音源モジュール基板
 - ゲージ圧センサ MIS-2500-015G(5V) 
 - Kailh Choc V1 ロープロファイルキースイッチ (赤軸)
 - MBK Choc ロープロファイルキーキャップ
 - 16bit I2C I/OエキスパンダIC MCP23017
-- DC/DCコンバータ イーター電機工業 AS6R0-0505 (入力4.5～9V, 出力:5V/1A) 
+- DC/DCコンバータ イーター電機工業 AS6R0-0505 <!-- (入力4.5～9V, 出力:5V/1A) --> 
 - スピーカ 8Ω 2W 28mm角 LF-K2828B112A
 
-## 設定画面
+## 操作パネル
 <img src="image/UI.png" width="512">
 
 - 音色は8種類から選べます。<br>(Harmonica, Rock Organ, Flute, Church Organ, Harpsichord, Nylon Guiter, Tinkle Bell, Grand Piao)
