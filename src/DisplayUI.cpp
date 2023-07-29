@@ -61,6 +61,9 @@ void DisplayUI_begin()
 {
     M5.begin(true, false, true); // LCD:ON, SDカード:OFF, シリアル:ON
 //  M5.Power.begin();
+//  M5.Speaker.setVolume(0);
+//  M5.Lcd.setBrightness(200);
+
     M5.Lcd.fillScreen(BLACK);
 
     // スプライトの作成

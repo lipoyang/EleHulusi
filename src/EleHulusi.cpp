@@ -141,23 +141,43 @@ void finger_input(int &octave, int &key12)
     uint8_t finger = ((data_l & 0x0F) << 4) | (data_r & 0x0F);
     // Serial.printf("finger = %02X\n", finger);
     
-    // 指使いの判定
+    // 左親指開放で1オクターブ上がる
     int octave_up = ((finger & 0x80) != 0) ? 1 : 0;
     finger &= 0x7F;
-    int key = 13;
-    for(int i = 0; i < 14; i++){
-        if(finger <= FINGER_TABLE[i]){
-            key = i;
-            break;
+
+    // 低い音の変則的な指使い
+    if((finger != 00) && ((finger & 0x0F) == 0x00))
+    {
+        int key = FINGER_TABLE2_SIZE - 1;
+        for(int i = 0; i < FINGER_TABLE2_SIZE; i++){
+            if(finger <= FINGER_TABLE2[i]){
+                key = i;
+                break;
+            }
         }
+        // 中央ド以上の場合
+        if(key >= MIDDLE_C){
+            octave_up++;
+        }
+        key12 = KEY_TABLE2[key];
+        octave = 3 + octave_up;
     }
-    // 高いドの場合
-    if(key >= 12){
-        octave_up++;
+    // 通常指使い
+    else{
+        int key = FINGER_TABLE_SIZE - 1;
+        for(int i = 0; i < FINGER_TABLE_SIZE; i++){
+            if(finger <= FINGER_TABLE[i]){
+                key = i;
+                break;
+            }
+        }
+        // 高いド以上の場合
+        if(key >= HIGH_C){
+            octave_up++;
+        }
+        key12 = KEY_TABLE[key];
+        octave = 4 + octave_up;
     }
-    // 音階の決定
-    octave = 4 + octave_up;
-    key12 = KEY_TABLE[key];
 }
 
 // ブレスセンサの初期化

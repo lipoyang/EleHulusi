@@ -41,15 +41,27 @@ const uint8_t FINGER_TABLE[14] = {
     0x03, // E
     0x07, // F
     0x0B, // F#
-    0x0E, // C# ← 変則的だがひとまずここにおく
     0x0F, // G
     0x17, // G#
     0x1F, // A
     0x2F, // A#
     0x3F, // B
-    0x5F, // C
-    0x6F, // D
+    0x5F, // 高い C
+    0x67, // 高い C#
+    0x6F, // 高い D
 };
+#define HIGH_C  11 // 高い C のインデックス
+#define FINGER_TABLE_SIZE 14
+
+const uint8_t FINGER_TABLE2[5] = {
+    0x10, // 低い A
+    0x20, // 低い A#
+    0x30, // 低い B
+    0x40, // C
+    0x50, // C#
+};
+#define MIDDLE_C  3  // 中央C のインデックス
+#define FINGER_TABLE2_SIZE 5
 
 // 音階のテーブル
 int KEY_TABLE[14] = {
@@ -59,14 +71,21 @@ int KEY_TABLE[14] = {
     KEY_E,
     KEY_F,
     KEY_F_SHARP,
-    KEY_C_SHARP, // ← 変則的だがひとまずここにおく
     KEY_G,
     KEY_G_SHARP,
     KEY_A,
     KEY_A_SHARP,
     KEY_B,
     KEY_C,
+    KEY_C_SHARP,
     KEY_D,
+};
+int KEY_TABLE2[5] = {
+    KEY_A,
+    KEY_A_SHARP,
+    KEY_B,
+    KEY_C,
+    KEY_C_SHARP,
 };
 
 #if 0
