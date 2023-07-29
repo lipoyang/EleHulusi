@@ -2,7 +2,7 @@
 <img src="image/EleHulusi.jpg" width="512">
 
 FM音源チップを使った吹奏楽器です。中国のひょうたん笛がモチーフです。  
-<!-- The wind synthesizer inspired by Chinese gourd flute. -->
+<!-- A wind synthesizer inspired by the Chinese gourd flute. -->
 
 ## 概要
 
@@ -13,10 +13,10 @@ FM音源チップを使った吹奏楽器です。中国のひょうたん笛が
 - 副管は電池ボックスになっています。また、持続音をON/OFFするスイッチが付いています。
 - 右の副管をONするとレ(D4)の音が、左の副管をONするとラ(A4)の音が出ます。
 - FM音源チップでさまざまな音色を作り、スピーカーに出力します。
-- M5Stackの画面とボタンで音色や調性などを設定できます。
+- M5Stackの画面とボタンで音色や調(キー)などを設定できます。
 
 <!--
-The air pressure sensor detects the breath blown into the bottle. The center pipe has keys to play a melody. Outer pipes have battery boxes and switches that turn on/off the sustained sounds. The FM synthesizer produces various timbres and outputs them to the speaker.
+The air pressure sensor detects The breath blown into the mouthpiece. The center pipe has keys to play a melody. Outer pipes have battery boxes and switches that turn on/off the sustained sounds. The FM synthesizer produces various timbres and outputs them to the speaker.
 -->
 
 ## 構成
@@ -45,7 +45,7 @@ The air pressure sensor detects the breath blown into the bottle. The center pip
 えれふるすは、ひょうたんの代わりにペットボトルを、竹筒のかわりにマーブルチョコレートの筒を使って作りました。そしてフルスの持続音をFM音源の同時発音で再現しました。
 
 <!--
-EleHulusi is inspired by the hulusi that is a Chinese traditional instrument known as the gourd flute. The hulusi is consist of a gourd bottle and three bamboo pipes. The outer pipes makes a harmonic effect. It is the same principle as bagpipes.
+EleHulusi is inspired by the hulusi, a Chinese traditional instrument that is also known as the gourd flute. The hulusi consists of a gourd bottle and three bamboo pipes. The outer pipes make a harmonic effect. It is the same principle as bagpipes.
 
 EleHulusi is made of a plastic bottle and paper pipes instead of a gourd bottle and bamboo pipes. The polyphonic FM synthesizer reproduces the harmonic effect of the hulusi.
 -->
