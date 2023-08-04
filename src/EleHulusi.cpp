@@ -184,14 +184,24 @@ void finger_input(int &octave, int &key12)
 void breath_begin()
 {
     // アナログ入力の初期化
-    pinMode(PIN_BREATH, ANALOG);
-    delay(100);
+//  pinMode(PIN_BREATH, ANALOG);
+//  delay(100);
+
+    // A/Dコンバータの設定
+    Wire.beginTransmission(ADDR_MCP3425);
+    Wire.write(CONFIG_MCP3425);
+    Wire.endTransmission();
+    delay(50);
     
     // オフセット電圧の取得
     const int AVERAGE_TIME = 8;
     int V_acc = 0;
     for(int i = 0; i < AVERAGE_TIME; i++){
-        int V = analogRead(PIN_BREATH);
+//      int V = analogRead(PIN_BREATH);
+        
+        Wire.requestFrom(ADDR_MCP3425, 2);
+        int V = (Wire.read() << 8 ) + Wire.read();
+        
         Serial.printf("V = %d\n",V);
         V_acc += V;
         delay(50);
@@ -203,17 +213,21 @@ void breath_begin()
 // ブレスセンサの入力
 void breath_input(int &vol)
 {
-    static const int V_MAX   = 80; // 最大ゲージ圧
+    static const int V_MAX   = 180; // 最大ゲージ圧 要調整
     static const int Vol_MAX = 31; // 最大音量
     
     // アナログ入力の取得
-    const int AVERAGE_TIME = 16;
-    int V = 0;
-    for(int i = 0; i < AVERAGE_TIME; i++){
-        int V_temp = analogRead(PIN_BREATH);
-        V += V_temp;
-    }
-    V = V / AVERAGE_TIME - V_off;
+//  const int AVERAGE_TIME = 16;
+//  int V = 0;
+//  for(int i = 0; i < AVERAGE_TIME; i++){
+//      int V_temp = analogRead(PIN_BREATH);
+//      V += V_temp;
+//  }
+//  V = V / AVERAGE_TIME - V_off;
+
+    Wire.requestFrom(ADDR_MCP3425, 2);
+    int V = (Wire.read() << 8 ) + Wire.read();
+    V = V - V_off;
     
     // 音量への換算
     vol = V * Vol_MAX / V_MAX;

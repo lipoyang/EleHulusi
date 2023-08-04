@@ -16,7 +16,7 @@ FM音源チップを使った吹奏楽器です。中国のひょうたん笛が
 - M5Stackの画面とボタンで音色や調(キー)などを設定できます。
 
 <!--
-The air pressure sensor detects The breath blown into the mouthpiece. The center pipe has keys to play a melody. Outer pipes have battery boxes and switches that turn on/off the sustained sounds. The FM synthesizer produces various timbres and outputs them to the speaker.
+The air pressure sensor detects The breath blown into the mouthpiece. The center pipe has keys to play a melody. Outer pipes have battery boxes and switches that turn on/off the sustained sounds. The FM synthesizer generates various timbres and outputs them to the speaker.
 -->
 
 ## 構成

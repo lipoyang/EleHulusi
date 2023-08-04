@@ -10,11 +10,15 @@
 #define PIN_FM_SS       16   // FM音源のSPIスレーブセレクト
 #define PIN_FM_RESET    17   // FM音源のリセット
 
-#define PIN_BREATH      35  // ブレスセンサのアナログ入力
+// #define PIN_BREATH      35  // ブレスセンサのアナログ入力
 
 // 旋律管のIOエキスパンダのI2Cスレーブアドレス
 #define ADDR_LEFT       0x20    // 左手
 #define ADDR_RIGHT      0x21    // 右手
+
+// A/DコンバータのI2Cスレーブアドレス
+#define ADDR_MCP3425    0x68
+#define CONFIG_MCP3425  0b10010010 // 12bit 240sps PGA x4 
 
 // 7音音階番号
 #define KEY7_C          0
