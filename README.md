@@ -29,6 +29,7 @@ The air pressure sensor detects The breath blown into the mouthpiece. The center
 - Kailh Choc V1 ロープロファイルキースイッチ (赤軸)
 - MBK Choc ロープロファイルキーキャップ
 - 16bit I2C I/OエキスパンダIC MCP23017
+- 16bit I2C A/DコンバータIC MCP3425
 - DC/DCコンバータ イーター電機工業 AS6R0-0505 <!-- (入力4.5～9V, 出力:5V/1A) --> 
 - スピーカ 8Ω 2W 28mm角 LF-K2828B112A
 
