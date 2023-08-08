@@ -328,13 +328,13 @@ void sound_output(int octave, int key12, int vol)
                         int ch_drone = (ch_num + 1) & 0x0F;
                         ymf825.keyoff(ch_drone);
                         ymf825.setTone(ch_drone, TONE_TABLE[tone_no] );
-                        ymf825.keyon(ch_drone, 4, KEY_A, vol);
+                        ymf825.keyon(ch_drone, 4, KEY_G, vol);
                     }
                     if(droneR_on){
                         int ch_drone = (ch_num + 2) & 0x0F;
                         ymf825.keyoff(ch_drone);
                         ymf825.setTone(ch_drone, TONE_TABLE[tone_no] );
-                        ymf825.keyon(ch_drone, 4, KEY_D, vol);
+                        ymf825.keyon(ch_drone, 4, KEY_C, vol);
                     }
                 }
                 break;
@@ -349,11 +349,11 @@ void sound_output(int octave, int key12, int vol)
                     ymf825.keyon(ch_num, octave, key12, vol);
                     if(droneL_on){
                         int ch_drone = (ch_num + 1) & 0x0F;
-                        ymf825.keyon(ch_drone, 4, KEY_A, vol);
+                        ymf825.keyon(ch_drone, 4, KEY_G, vol);
                     }
                     if(droneR_on){
                         int ch_drone = (ch_num + 2) & 0x0F;
-                        ymf825.keyon(ch_drone, 4, KEY_D, vol);
+                        ymf825.keyon(ch_drone, 4, KEY_C, vol);
                     }
                     //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                 }
