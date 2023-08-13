@@ -1,5 +1,5 @@
 # えれふるす (FM音源ウインドシンセ)
-<img src="image/EleHulusi.jpg" width="512">
+[![代替テキスト](https://img.youtube.com/vi/nw4zOiLLuTk/0.jpg)](https://www.youtube.com/watch?v=nw4zOiLLuTk)
 
 FM音源チップを使った吹奏楽器です。中国のひょうたん笛がモチーフです。  
 <!-- A wind synthesizer inspired by the Chinese gourd flute. -->
