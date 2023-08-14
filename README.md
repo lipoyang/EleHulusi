@@ -25,7 +25,7 @@ The air pressure sensor detects The breath blown into the mouthpiece. The center
 - M5Stack Basic V2.7
 - ソフトはPlatformIOで開発 (Arduinoベース)
 - YAMAHA YMF825搭載FM音源モジュール基板
-- ゲージ圧センサ MIS-2500-015G(5V) 
+- ゲージ圧センサ MIS-2503-015G(3V) 
 - Kailh Choc V1 ロープロファイルキースイッチ (赤軸)
 - MBK Choc ロープロファイルキーキャップ
 - 16bit I2C I/OエキスパンダIC MCP23017
