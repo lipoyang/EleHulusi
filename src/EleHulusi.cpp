@@ -334,7 +334,7 @@ void scale_calc(int &octave, int &key12)
 
     // ドローン管(右)
     droneR_octave = 4;
-    droneR_key = KEY_G;
+    droneR_key = KEY_C;
     droneR_key += scale;
     if(droneR_key >= 12){
         droneR_key -= 12;
