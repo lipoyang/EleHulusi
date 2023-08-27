@@ -342,6 +342,10 @@ void scale_calc(int &octave, int &key12)
 // サウンド出力
 void sound_output(int octave, int key12, int vol)
 {
+	// 前回の音
+    static int octave_pre = 4;
+    static int key12_pre = KEY_C;
+
     // 管楽器系
     if(tone_no >= 4)
     {
@@ -354,6 +358,8 @@ void sound_output(int octave, int key12, int vol)
                     ymf825.setTone(ch_num, TONE_TABLE[tone_no] );
                     ymf825.keyon(ch_num, octave, key12, vol);
                     key_state = KEY_ON1;
+                    octave_pre = octave;
+                    key12_pre = key12;
 
                     if(droneL_on){
                         int ch_drone = (ch_num + 1) & 0x0F;
@@ -378,14 +384,20 @@ void sound_output(int octave, int key12, int vol)
                     key_state = KEY_OFF;
                     //Serial.println("Key Off");
                 }else{
-                    ymf825.keyon(ch_num, octave, key12, vol);
+                    if((octave_pre == octave) && (key12_pre == key12)){
+                        ymf825.setVolume(ch_num, vol);
+                    }else{
+                        ymf825.keyon(ch_num, octave, key12, vol);
+                        octave_pre = octave;
+                        key12_pre = key12;
+                    }
                     if(droneL_on){
                         int ch_drone = (ch_num + 1) & 0x0F;
-                        ymf825.keyon(ch_drone, droneL_octave, droneL_key, vol);
+                        ymf825.setVolume(ch_drone, vol);
                     }
                     if(droneR_on){
                         int ch_drone = (ch_num + 2) & 0x0F;
-                        ymf825.keyon(ch_drone, droneR_octave, droneR_key, vol);
+                        ymf825.setVolume(ch_drone, vol);
                     }
                     //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                 }
@@ -425,14 +437,25 @@ void sound_output(int octave, int key12, int vol)
                     ymf825.keyoff(ch_num);
                     ymf825.setTone(ch_num, TONE_TABLE[tone_no] );
                     ymf825.keyon(ch_num, octave, key12, vol_old);
-                    //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                     key_state = KEY_ON2;
+                    octave_pre = octave;
+                    key12_pre = key12;
+                    //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                 }
                 break;
             case KEY_ON2:
-                if(vol <= STRINGS_MIN){
+                if(vol <= 2){
                     //ymf825.keyoff(0);
                     key_state = KEY_OFF;
+                }
+                else if((octave_pre != octave) || (key12_pre != key12)){
+                    ch_num = (ch_num + 3) & 0x0F; // mod 16
+                    ymf825.keyoff(ch_num);
+                    ymf825.setTone(ch_num, TONE_TABLE[tone_no] );
+                    ymf825.keyon(ch_num, octave, key12, vol);
+                    octave_pre = octave;
+                    key12_pre = key12;
+                    //Serial.printf("Key On2 %d, %d, %d, %d\n", ch_num, octave, key12, vol);
                 }
                 break;
         }
