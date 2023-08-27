@@ -3,6 +3,7 @@
 #include <Adafruit_MCP23X17.h>
 #include "SimpleYMF825.h"
 #include "EleHulusi.h"
+#include "BleMidiCtrl.h"
 
 // FM音源
 SimpleYMF825 ymf825;
@@ -63,6 +64,9 @@ void setup()
     
     // ブレスセンサの初期化
     breath_begin();
+    
+    // MIDIの初期化
+    BleMidiCtrl_begin();
 }
 
 // メインループ
@@ -71,6 +75,9 @@ void loop()
     int octave;      // オクターブ
     int key12;       // 12音音階番号
     int vol;         // 音量
+    
+    // MIDIの処理
+//  BleMidiCtrl_loop();
     
     // ボタン入力
     button_input();
@@ -374,6 +381,8 @@ void sound_output(int octave, int key12, int vol)
                         ymf825.keyon(ch_drone, droneR_octave, droneR_key, vol);
                     }
                     //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
+
+                    BleMidiCtrl_noteOn(octave, key12, vol, 1);
                 }
                 break;
             case KEY_ON1:
@@ -383,13 +392,19 @@ void sound_output(int octave, int key12, int vol)
                     ymf825.keyoff((ch_num + 2) & 0x0F);
                     key_state = KEY_OFF;
                     //Serial.println("Key Off");
+
+                    BleMidiCtrl_noteOff(vol, 1);
                 }else{
                     if((octave_pre == octave) && (key12_pre == key12)){
                         ymf825.setVolume(ch_num, vol);
+
+                        BleMidiCtrl_noteOn(vol, 1);
                     }else{
                         ymf825.keyon(ch_num, octave, key12, vol);
                         octave_pre = octave;
                         key12_pre = key12;
+
+                        BleMidiCtrl_noteOn(octave, key12, vol, 1);
                     }
                     if(droneL_on){
                         int ch_drone = (ch_num + 1) & 0x0F;
@@ -441,12 +456,16 @@ void sound_output(int octave, int key12, int vol)
                     octave_pre = octave;
                     key12_pre = key12;
                     //Serial.printf("Key On %d, %d, %d, %d\n", ch_num, octave, key12, vol);
+
+                    BleMidiCtrl_noteOn(octave, key12, vol, 1);
                 }
                 break;
             case KEY_ON2:
                 if(vol <= 2){
                     //ymf825.keyoff(0);
                     key_state = KEY_OFF;
+
+                    BleMidiCtrl_noteOff(vol, 1);
                 }
                 else if((octave_pre != octave) || (key12_pre != key12)){
                     ch_num = (ch_num + 3) & 0x0F; // mod 16
@@ -456,6 +475,8 @@ void sound_output(int octave, int key12, int vol)
                     octave_pre = octave;
                     key12_pre = key12;
                     //Serial.printf("Key On2 %d, %d, %d, %d\n", ch_num, octave, key12, vol);
+
+                    BleMidiCtrl_noteOn(octave, key12, vol, 1);
                 }
                 break;
         }
