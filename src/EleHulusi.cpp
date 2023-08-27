@@ -238,6 +238,7 @@ void breath_input(int &vol)
     vol = V * Vol_MAX / V_MAX;
     if(vol > Vol_MAX) vol = Vol_MAX;
     if(vol < 1) vol = 0;
+    if(vol == 1) vol = 2; // ?
 
     // Serial.printf("V = %4d, vol = %2d\n",V, vol);
 }
